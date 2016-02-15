@@ -41,7 +41,7 @@ public class Memory extends Conditionable{
     public void setIdProcess(int id) {
         double fileSize= processConfig[id].dlWrite / processConfig[id].kolObr;
         double koef = fileSize / (DeviceConfig.memorySize * 1024);
-        widthFile = (int) Math.sqrt(koef * 10_000);
+        widthFile = (int) Math.sqrt(koef * 10000);
         if (widthFile < 5) {
             widthFile = 5;
         }

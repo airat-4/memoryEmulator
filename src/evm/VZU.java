@@ -55,7 +55,7 @@ public class VZU extends Conditionable{
     }
     public void setIdProcess(int id) {
         double koef = processConfig[id].dlFile / (DeviceConfig.vzuSize * 1024);
-        widthFile = (int) Math.sqrt(koef * 22_500);
+        widthFile = (int) Math.sqrt(koef * 22500);
         if (widthFile < 5) {
             widthFile = 5;
         }

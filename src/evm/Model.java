@@ -27,7 +27,7 @@ public class Model extends javax.swing.JPanel {
     private Plata plata = new Plata();
     private Thread paintTread;
     private Thread actionThread;
-    private static int FPS = 3;
+    private static final int FPS = 3;
             
     public Model() {
         

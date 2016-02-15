@@ -86,7 +86,7 @@ public class Plata{
         graphics.drawString("" + prosessor.activeTimePersent(prosessor.getStartTime(), prosessor.getEndTime()) + " %", 1125, 70);
         graphics.drawString("" + prosessor.activeTime(prosessor.getStartTime(), prosessor.getEndTime()) + " сек.", 1200, 70);
         graphics.drawImage(prosessor.getTimeDiogram(prosessor.getStartTime(), prosessor.getEndTime()), 975, 80, null);
-        
+
         graphics.drawString("ВЗУ 0", 975, 120);
         graphics.drawString("" + vzu[0].activeTimePersent(prosessor.getStartTime(), prosessor.getEndTime()) + " %", 1125, 120);
         graphics.drawString("" + vzu[0].activeTime(prosessor.getStartTime(), prosessor.getEndTime()) + " сек.", 1200, 120);
