@@ -30,7 +30,6 @@ class DeviceConfig {
 }
 
 class ProcessConfig {
-    int amountComand;
     int kolCom;
     int kolObr;
     double dlFile;
@@ -114,8 +113,8 @@ public class ConfigurationPanel extends javax.swing.JFrame {
                     return false;
                 }
                 
-                DeviceConfig.processConfig[0].amountComand = Integer.parseInt(jTextField9.getText());
-                if (DeviceConfig.processConfig[0].amountComand <= 0) {
+                DeviceConfig.processConfig[0].kolCom = Integer.parseInt(jTextField9.getText());
+                if (DeviceConfig.processConfig[0].kolCom <= 0) {
                     label1.setText("Ты точно уверен что сучествуют программы без команд???");
                     return false; 
                 }   
@@ -143,7 +142,7 @@ public class ConfigurationPanel extends javax.swing.JFrame {
 
             if (jCheckBox2.isSelected()) {
                 DeviceConfig.processConfig[1] = new ProcessConfig();
-                DeviceConfig.processConfig[1].kolCom = Integer.parseInt(jTextField9.getText());
+                DeviceConfig.processConfig[1].kolCom = Integer.parseInt(jTextField23.getText());
                 DeviceConfig.processConfig[1].kolObr = Integer.parseInt(jTextField13.getText());
                 DeviceConfig.processConfig[1].dlFile = Double.parseDouble(jTextField14.getText());
                 DeviceConfig.processConfig[1].dlWrite = Double.parseDouble(jTextField15.getText());
@@ -164,8 +163,8 @@ public class ConfigurationPanel extends javax.swing.JFrame {
                     label1.setText("Номер ВЗУ может быть только 0 или 1.:( больше нету :(");
                     return false;
                 }
-                DeviceConfig.processConfig[1].amountComand = Integer.parseInt(jTextField23.getText());
-                if (DeviceConfig.processConfig[1].amountComand <= 0) {
+                DeviceConfig.processConfig[1].kolCom= Integer.parseInt(jTextField23.getText());
+                if (DeviceConfig.processConfig[1].kolCom <= 0) {
                     label1.setText("Ты точно уверен что сучествуют программы без команд???");
                     return false; 
                 }   
@@ -192,7 +191,7 @@ public class ConfigurationPanel extends javax.swing.JFrame {
 
             if (jCheckBox3.isSelected()) {
                 DeviceConfig.processConfig[2] = new ProcessConfig();
-                DeviceConfig.processConfig[2].kolCom = Integer.parseInt(jTextField9.getText());
+                DeviceConfig.processConfig[2].kolCom = Integer.parseInt(jTextField24.getText());
                 DeviceConfig.processConfig[2].kolObr = Integer.parseInt(jTextField16.getText());
                 DeviceConfig.processConfig[2].dlFile = Double.parseDouble(jTextField17.getText());
                 DeviceConfig.processConfig[2].dlWrite = Double.parseDouble(jTextField18.getText());
@@ -213,8 +212,8 @@ public class ConfigurationPanel extends javax.swing.JFrame {
                     label1.setText("Номер ВЗУ может быть только 0 или 1.:( больше нету :(");
                     return false;
                 }
-                DeviceConfig.processConfig[2].amountComand = Integer.parseInt(jTextField24.getText());
-                if (DeviceConfig.processConfig[2].amountComand <= 0) {
+                DeviceConfig.processConfig[2].kolCom = Integer.parseInt(jTextField24.getText());
+                if (DeviceConfig.processConfig[2].kolCom <= 0) {
                     label1.setText("Ты точно уверен что сучествуют программы без команд???");
                     return false; 
                 }   
