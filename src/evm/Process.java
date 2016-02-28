@@ -7,6 +7,9 @@ import static evm.DeviceConfig.*;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 /**
  *
  * @author airat
@@ -22,13 +25,31 @@ public class Process {
     private Prosessor prosessor;
     private BufferedImage image = new BufferedImage(201, 21, BufferedImage.TYPE_INT_RGB);
     private Graphics graphics = image.getGraphics();
-    
+    private static final ExecutorService threadPool = Executors.newSingleThreadExecutor();
+    private int pdpTimel;
+
     public Process(int id, Plata plata, Prosessor prosessor) {
         this.id = id;
         this.plata = plata;
         this.prosessor = prosessor;
-        if(processConfig[id] == null)
+        if (processConfig[id] == null) {
             finished = true;
+            return;
+        }
+        double minPerfomans = SystemShinaPerfomens;
+        if (minPerfomans > ICHPerfomens) {
+            minPerfomans = ICHPerfomens;
+        }
+        if (minPerfomans > memoryShinaPerfomens) {
+            minPerfomans = memoryShinaPerfomens;
+        }
+        if (minPerfomans > vzuShinaPerfomens) {
+            minPerfomans = vzuShinaPerfomens;
+        }
+        if (minPerfomans > GMSHPerfomens) {
+            minPerfomans = GMSHPerfomens;
+        }
+        pdpTimel = (int) ((processConfig[id].dlWrite * 1000) / (processConfig[id].kolObr * minPerfomans));
     }
 
     public boolean action() {
@@ -58,36 +79,35 @@ public class Process {
     public Image paint() {//90 30
         graphics.setColor(Color.WHITE);
         graphics.fillRect(0, 0, image.getWidth(), image.getHeight());
-        if(!finished){
-            for (int j = 0; j < 5; ++j) {                           
+        if (!finished) {
+            for (int j = 0; j < 5; ++j) {
                 if (currentOperation + j == DeviceConfig.processConfig[id].prog.length) {
                     break;
                 }
-                if (DeviceConfig.processConfig[id].prog[currentOperation +j] > 0) {
+                if (DeviceConfig.processConfig[id].prog[currentOperation + j] > 0) {
                     graphics.setColor(Color.BLACK);
-                    graphics.drawString(Integer.toString(DeviceConfig.processConfig[id].prog[currentOperation +j]), 170 - j * 40, 15);
+                    graphics.drawString(Integer.toString(DeviceConfig.processConfig[id].prog[currentOperation + j]), 170 - j * 40, 15);
                 }
-                if (DeviceConfig.processConfig[id].prog[currentOperation +j] == -1) {
+                if (DeviceConfig.processConfig[id].prog[currentOperation + j] == -1) {
                     graphics.setColor(Color.RED);
                     graphics.fillRect(160 - j * 40, 0, 40, 20);
                 }
-                if (DeviceConfig.processConfig[id].prog[currentOperation +j] == -2) {
+                if (DeviceConfig.processConfig[id].prog[currentOperation + j] == -2) {
                     graphics.setColor(Color.GREEN);
                     graphics.fillRect(160 - j * 40, 0, 40, 20);
                 }
-                if (DeviceConfig.processConfig[id].prog[currentOperation +j] == -3) {
+                if (DeviceConfig.processConfig[id].prog[currentOperation + j] == -3) {
                     graphics.setColor(Color.BLUE);
                     graphics.fillRect(160 - j * 40, 0, 40, 20);
                 }
-                
+
             }
         }
-        graphics.setColor(Color.BLACK);                               
-        for (int j = 0; j < 5; ++j)
-        {
-            graphics.drawRect(j * 40, 0, 40, 20);      
-        }  
-        return  image;
+        graphics.setColor(Color.BLACK);
+        for (int j = 0; j < 5; ++j) {
+            graphics.drawRect(j * 40, 0, 40, 20);
+        }
+        return image;
     }
 
     public boolean isFinished() {
@@ -97,9 +117,9 @@ public class Process {
     public boolean isWaiting() {
         return waiting;
     }
-    
-    public boolean isLocked(){
-        if(processConfig[id].prog[currentOperation] < 0){
+
+    public boolean isLocked() {
+        if (processConfig[id].prog[currentOperation] < 0) {
             return plata.gmch.getCondition() != Condition.INACTIVE;
         }
         return false;
@@ -135,45 +155,29 @@ public class Process {
             plata.gmch.setCondition(Condition.ACTIVE);
             plata.ich.setCondition(Condition.ACTIVE_WITH_FILE);
             plata.vzu[processConfig[id].numVzu].setCondition(Condition.ACTIVE_WITH_FILE);
-            plata.memory.setCondition(Condition.ACTIVE_WITH_FILE); 
+            plata.memory.setCondition(Condition.ACTIVE_WITH_FILE);
             plata.memory.setIdProcess(id);
             plata.vzu[processConfig[id].numVzu].setIdProcess(id);
-            new Thread() {
-
-                @Override
-                public void run() {
-                    double minPerfomans = SystemShinaPerfomens;
-                    if (minPerfomans > GMSHPerfomens) {
-                        minPerfomans = GMSHPerfomens;
-                    }
-                    if (minPerfomans > ICHPerfomens) {
-                        minPerfomans = ICHPerfomens;
-                    }
-                    if (minPerfomans > memoryShinaPerfomens) {
-                        minPerfomans = memoryShinaPerfomens;
-                    }
-                    if (minPerfomans > vzuShinaPerfomens) {
-                        minPerfomans = vzuShinaPerfomens;
-                    }
-                    try {
-                        Thread.sleep((int) ((processConfig[id].dlWrite * 1000) / (processConfig[id].kolObr * minPerfomans)));
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(Process.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    plata.memoryShina.setCondition(Condition.INACTIVE);
-                    plata.ich.setCondition(Condition.INACTIVE);
-                    plata.vzu[processConfig[id].numVzu].setCondition(Condition.INACTIVE);
-                    plata.memory.setCondition(Condition.INACTIVE);
-                    plata.gmch.setCondition(Condition.INACTIVE);
-                    waiting = false;
-                    currentOperation++;
-                }
-
-            }.start();
+            threadPool.submit(
+                    new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Thread.sleep(pdpTimel);
+                            } catch (InterruptedException ex) {}
+                            plata.memoryShina.setCondition(Condition.INACTIVE);
+                            plata.ich.setCondition(Condition.INACTIVE);
+                            plata.vzu[processConfig[id].numVzu].setCondition(Condition.INACTIVE);
+                            plata.memory.setCondition(Condition.INACTIVE);
+                            plata.gmch.setCondition(Condition.INACTIVE);
+                            waiting = false;
+                            currentOperation++;
+                        }
+                    });
 
         }
         return false;
-       
+
     }
 
     private boolean processingFile() {
@@ -211,6 +215,7 @@ public class Process {
         prosessor.setTypeOperation(TypeOperation.ACTION_COMANDS);
         try {
             Thread.sleep((int) (1000 / perfomens));
-        } catch (InterruptedException ex) {}
+        } catch (InterruptedException ex) {
+        }
     }
 }
