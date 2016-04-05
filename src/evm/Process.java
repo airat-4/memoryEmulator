@@ -155,9 +155,6 @@ public class Process {
                                 Logger.getLogger(Process.class.getName()).log(Level.SEVERE, null, ex);
                             }
                             plata.systemShina.setCondition(Condition.INACTIVE);
-                            plata.gmch.setCondition(Condition.INACTIVE);
-                            plata.ich.setCondition(Condition.INACTIVE);
-                            plata.vzu[processConfig[id].numVzu].setCondition(Condition.INACTIVE);
                             currentOperation++;
                             //  ПДП
                             typeOperation = TypeOperation.PDP;
