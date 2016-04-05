@@ -13,7 +13,6 @@ import java.awt.image.BufferedImage;
 public class ICH extends Conditionable{
     private BufferedImage image = new BufferedImage(580, 211, BufferedImage.TYPE_INT_RGB);
     private Graphics graphics = image.getGraphics();
-    private Color activeColor = new Color(249, 201, 153);
     private Plata plata;
 
     public ICH(Plata plata) {
@@ -27,7 +26,7 @@ public class ICH extends Conditionable{
         int[] arrayY = {y, y + 20, y + 20, y + d + 20, y + d + 20, 40 + d + y, y + d + 20, 20 + d + y, 20 + y, 20 + y};
         Polygon poly = new Polygon(arrayX, arrayY, arrayX.length);
         if(getCondition() != Condition.INACTIVE){
-            graphics.setColor(activeColor);
+            graphics.setColor(plata.prosessor.getColor());
             graphics.fillPolygon(poly);
         }
         graphics.setColor(Color.BLACK);
@@ -48,7 +47,7 @@ public class ICH extends Conditionable{
         Polygon polyVZU1 = new Polygon(arrayVZU1X, arrayVZU1Y, 10);
         if(getCondition() != Condition.INACTIVE){
             if (plata.vzu[0].getCondition() != Condition.INACTIVE) {
-                graphics.setColor(activeColor);
+                graphics.setColor(plata.prosessor.getColor());
                 graphics.fillPolygon(poly0);
                 graphics.fillPolygon(polyVZU0);
                 if(getCondition() == Condition.ACTIVE_WITH_FILE){
@@ -58,7 +57,7 @@ public class ICH extends Conditionable{
                 }
             }
         if (plata.vzu[1].getCondition() != Condition.INACTIVE) {
-            graphics.setColor(activeColor);
+            graphics.setColor(plata.prosessor.getColor());
                 graphics.fillPolygon(poly1);
                 graphics.fillPolygon(polyVZU1);
                 if(getCondition() == Condition.ACTIVE_WITH_FILE){

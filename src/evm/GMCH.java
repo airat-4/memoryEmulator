@@ -12,23 +12,23 @@ import java.awt.image.BufferedImage;
 public class GMCH extends Conditionable{
     private BufferedImage image = new BufferedImage(401, 101, BufferedImage.TYPE_INT_RGB);
     private Graphics graphics = image.getGraphics();
-    private Color activeColor = new Color(249, 201, 153);
     private Plata plata;
     public GMCH(Plata plata) {
         this.plata = plata;
     }
     
     public Image paint() {//300 160
+        
         graphics.setColor(Color.WHITE);
         graphics.fillRect(0, 0, image.getWidth(), image.getHeight());
-        graphics.setColor(activeColor);
+        graphics.setColor(plata.prosessor.getColor());
         if (getCondition() == Condition.ACTIVE_WITH_FILE) {
             graphics.fillRect(190, 20, 10, 40);
             graphics.fillRect(190, 50, 210, 10);
             graphics.setColor(Color.RED);
             graphics.fillRect(175, 0, 40, 20);
         }
-        graphics.setColor(activeColor);
+        graphics.setColor(plata.prosessor.getColor());
         if (plata.ich.getCondition() == Condition.ACTIVE) {
             graphics.fillRect(190, 20, 10, 80);
         }

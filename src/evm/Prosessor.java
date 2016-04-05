@@ -1,5 +1,6 @@
 package evm;
 
+import static evm.DeviceConfig.processConfig;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -59,6 +60,7 @@ public class Prosessor extends Conditionable {
                 if (amountWaitingProcess == process.length) {
                     setCondition(Condition.INACTIVE);
                     Thread.yield();
+                    continue;
                 }
                 currentProcess = (currentProcess < process.length - 1) ? currentProcess + 1 : 0;
                 amountCurrentProcessIteration = 0;
@@ -134,7 +136,22 @@ public class Prosessor extends Conditionable {
         return endTime;
     }
     
-    
-
+    Process getProcess(int id){
+        return process[id];
+    }
+    public Color getColor(){
+        for (Process pr :process) {
+            if(pr.getTypeOperation() == TypeOperation.SEARCH_MARK){
+                return Color.RED;
+            }
+            if(pr.getTypeOperation() == TypeOperation.PDP){
+                return Color.GREEN;
+            }
+            if(pr.getTypeOperation() == TypeOperation.PROCESSING_FILE){
+                return Color.BLUE;
+            }
+        }
+        return null;
+    }
     
 }

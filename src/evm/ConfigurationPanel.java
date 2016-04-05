@@ -50,6 +50,7 @@ public class ConfigurationPanel extends javax.swing.JFrame {
         workDirectory = classPath.substring(0, classPath.lastIndexOf(File.separator));
         initComponents();
         jFileChooser1.setCurrentDirectory(new File(workDirectory));
+        jButton1ActionPerformed(null);// Загрузка параметров по умолчанию
     }
 
     private boolean ini() {
@@ -894,11 +895,8 @@ static JFrame frame;
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ConfigurationPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ConfigurationPanel().setVisible(true);
-            }
-        });
+        new ConfigurationPanel().setVisible(true);
+            
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;

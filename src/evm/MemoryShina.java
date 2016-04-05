@@ -13,12 +13,16 @@ import java.awt.image.BufferedImage;
 public class MemoryShina extends Conditionable{
     private BufferedImage image = new BufferedImage(140, 40, BufferedImage.TYPE_INT_RGB);
     private Graphics graphics = image.getGraphics();
-    private Color activeColor = new Color(249, 201, 153);
+    private Plata plata;
+
+    public MemoryShina(Plata plata) {
+        this.plata = plata;
+    }
     
     public Image paint() {//700 195
         graphics.setColor(Color.WHITE);
         graphics.fillRect(1, 0, image.getWidth() - 1, image.getHeight());
-        graphics.setColor(activeColor);
+        graphics.setColor(plata.prosessor.getColor());
         int d = 100;
         int[] arrayX = {0, 20, 20 , d + 20, 20 + d, 40 + d, 20 + d, 20 + d, 20, 20};
         int[] arrayY = {20, 40, 25, 25, 40, 20, 0, 15, 15 , 0};
