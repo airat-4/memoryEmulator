@@ -67,7 +67,7 @@ public class StartingWindow extends javax.swing.JFrame {
         } catch (IOException ex) {
         }
         graphics.drawString("Идет подготовка к запуску", 120, 20);
-        graphics.drawString("Подаждите пожалуйста", 130, 275);
+        graphics.drawString("Подождите пожалуйста", 130, 275);
         graphics.drawString("© Айрат Гареев 2016", 250, 290);
     }
 

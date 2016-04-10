@@ -29,10 +29,10 @@ public class Plata{
     
     {
         prosessor = new Prosessor(this);
-        systemShina = new SystemShina();
+        systemShina = new SystemShina(this);
         gmch = new GMCH(this);
         ich = new ICH(this);
-        memoryShina = new MemoryShina();
+        memoryShina = new MemoryShina(this);
         memory = new Memory();
         vzu =  new VZU[2];
         vzu[0] = new VZU(0);

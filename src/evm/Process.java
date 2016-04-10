@@ -27,7 +27,11 @@ public class Process {
     private Graphics graphics = image.getGraphics();
     private static final ExecutorService threadPool = Executors.newSingleThreadExecutor();
     private int pdpTimel;
+    private TypeOperation typeOperation;
 
+    public TypeOperation getTypeOperation() {
+        return typeOperation;
+    }
     public Process(int id, Plata plata, Prosessor prosessor) {
         this.id = id;
         this.plata = plata;
@@ -56,9 +60,6 @@ public class Process {
         boolean success = true;
         switch (processConfig[id].prog[currentOperation]) {
             case -1:
-                success = searchMark();
-                break;
-            case -2:
                 success = pdp();
                 break;
             case -3:
@@ -127,20 +128,8 @@ public class Process {
 
     private boolean searchMark() {
         if (plata.gmch.getCondition() == Condition.INACTIVE) {
-            prosessor.setTypeOperation(TypeOperation.SEARCH_MARK);
-            plata.systemShina.setCondition(Condition.ACTIVE);
-            plata.gmch.setCondition(Condition.ACTIVE);
-            plata.ich.setCondition(Condition.ACTIVE);
-            plata.vzu[processConfig[id].numVzu].setCondition(Condition.ACTIVE);
-            try {
-                Thread.sleep(SEARCH_MARK_TIME);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Process.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            plata.systemShina.setCondition(Condition.INACTIVE);
-            plata.gmch.setCondition(Condition.INACTIVE);
-            plata.ich.setCondition(Condition.INACTIVE);
-            plata.vzu[processConfig[id].numVzu].setCondition(Condition.INACTIVE);
+            
+            
         } else {
             return false;
         }
@@ -148,20 +137,35 @@ public class Process {
     }
 
     private boolean pdp() {
+        typeOperation = TypeOperation.SEARCH_MARK;
         if (plata.gmch.getCondition() == Condition.INACTIVE) {
             waiting = true;
-            prosessor.setTypeOperation(TypeOperation.PDP);
-            plata.memoryShina.setCondition(Condition.ACTIVE);
+            prosessor.setTypeOperation(TypeOperation.SEARCH_MARK);
+            plata.systemShina.setCondition(Condition.ACTIVE);
             plata.gmch.setCondition(Condition.ACTIVE);
-            plata.ich.setCondition(Condition.ACTIVE_WITH_FILE);
-            plata.vzu[processConfig[id].numVzu].setCondition(Condition.ACTIVE_WITH_FILE);
-            plata.memory.setCondition(Condition.ACTIVE_WITH_FILE);
-            plata.memory.setIdProcess(id);
-            plata.vzu[processConfig[id].numVzu].setIdProcess(id);
+            plata.ich.setCondition(Condition.ACTIVE);
+            plata.vzu[processConfig[id].numVzu].setCondition(Condition.ACTIVE);
             threadPool.submit(
                     new Runnable() {
                         @Override
                         public void run() {
+                            try {
+                                Thread.sleep(SEARCH_MARK_TIME);
+                            } catch (InterruptedException ex) {
+                                Logger.getLogger(Process.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            plata.systemShina.setCondition(Condition.INACTIVE);
+                            currentOperation++;
+                            //  ПДП
+                            typeOperation = TypeOperation.PDP;
+                            prosessor.setTypeOperation(TypeOperation.PDP);
+                            plata.memoryShina.setCondition(Condition.ACTIVE);
+                            plata.gmch.setCondition(Condition.ACTIVE);
+                            plata.ich.setCondition(Condition.ACTIVE_WITH_FILE);
+                            plata.vzu[processConfig[id].numVzu].setCondition(Condition.ACTIVE_WITH_FILE);
+                            plata.memory.setCondition(Condition.ACTIVE_WITH_FILE);
+                            plata.memory.setIdProcess(id);
+                            plata.vzu[processConfig[id].numVzu].setIdProcess(id);
                             try {
                                 Thread.sleep(pdpTimel);
                             } catch (InterruptedException ex) {}
@@ -181,6 +185,7 @@ public class Process {
     }
 
     private boolean processingFile() {
+        typeOperation = TypeOperation.PROCESSING_FILE;
         if (plata.gmch.getCondition() == Condition.INACTIVE) {
             prosessor.setTypeOperation(TypeOperation.PROCESSING_FILE);
             prosessor.setCondition(Condition.ACTIVE_WITH_FILE);
@@ -212,10 +217,12 @@ public class Process {
     }
 
     private void actionComands() {
+        typeOperation = TypeOperation.ACTION_COMANDS;
         prosessor.setTypeOperation(TypeOperation.ACTION_COMANDS);
         try {
             Thread.sleep((int) (1000 / perfomens));
         } catch (InterruptedException ex) {
         }
     }
+    
 }
