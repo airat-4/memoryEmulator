@@ -59,6 +59,7 @@ public class Prosessor extends Conditionable {
                 if (amountWaitingProcess == process.length) {
                     setCondition(Condition.INACTIVE);
                     Thread.yield();
+                    continue;
                 }
                 currentProcess = (currentProcess < process.length - 1) ? currentProcess + 1 : 0;
                 amountCurrentProcessIteration = 0;
@@ -134,7 +135,9 @@ public class Prosessor extends Conditionable {
         return endTime;
     }
     
-    
+    Process getProcess(int id){
+        return process[id];
+    }
 
     
 }

@@ -66,7 +66,7 @@ public class Plata{
         graphics.drawString("Поиск начальной метки файла", 630, 30);
         graphics.drawString("Прямой доступ к памяти", 630, 50);
         graphics.drawString("Оброботка файла процессором", 630, 70);
-        graphics.drawString("Нажмите Esc для возврата к настройкам", 5, 10);
+        graphics.drawString("Нажмите Esc для возврата к настройкам", 30, 15);
         int x = 160, y = 215, d = 100;
         int[] arrayX = {x, 20 + x, 20 + x, x + d + 20, 20 + x + d, 40 + d + x, 20 + d + x, 20 + d + x, 20 + x, 20 + x};
         int[] arrayY = {y, y - 20, y - 5, y - 5, y - 20, y, 20 + y, 5 + y, 5 + y, 20 + y};
