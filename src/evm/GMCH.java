@@ -25,7 +25,6 @@ public class GMCH extends Conditionable{
         if (getCondition() == Condition.ACTIVE_WITH_FILE) {
             graphics.fillRect(190, 20, 10, 40);
             graphics.fillRect(190, 50, 210, 10);
-            graphics.setColor(Color.RED);
             graphics.fillRect(175, 0, 40, 20);
         }
         graphics.setColor(plata.prosessor.getColor());

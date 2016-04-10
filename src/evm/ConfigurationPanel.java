@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.JFrame;
 
@@ -25,7 +26,7 @@ class DeviceConfig {
     static double memoryShinaPerfomens;
     static double vzuShinaPerfomens;
     static ProcessConfig[] processConfig;
-    
+    static char[][] typeOperation;
     
 }
 
@@ -57,6 +58,7 @@ public class ConfigurationPanel extends javax.swing.JFrame {
         try {
             label1.setForeground(RED);
             DeviceConfig.processConfig = new ProcessConfig[3];
+            DeviceConfig.typeOperation = new char[3][];
             Random r = new Random();
             DeviceConfig.perfomens = Double.parseDouble(jTextField1.getText());
             if (DeviceConfig.perfomens <= 0) {
@@ -85,6 +87,9 @@ public class ConfigurationPanel extends javax.swing.JFrame {
             if (DeviceConfig.vzuShinaPerfomens <= 0) {
                 label1.setText("Поставь нормальную шину ВЗУ");
                 return false;
+            }
+            if(!jCheckBox4.isSelected() && !jCheckBox5.isSelected()){
+                label1.setText("Выберите тип операций");
             }
             //-----------------------------------------------------------
             if (jCheckBox1.isSelected()) {
@@ -119,12 +124,22 @@ public class ConfigurationPanel extends javax.swing.JFrame {
                     label1.setText("Ты точно уверен что сучествуют программы без команд???");
                     return false; 
                 }   
+                DeviceConfig.typeOperation[0] = new char[DeviceConfig.processConfig[0].kolObr];
                 DeviceConfig.processConfig[0].prog = new int[DeviceConfig.processConfig[0].kolCom + DeviceConfig.processConfig[0].kolObr * 3];//формирование программы
+                DeviceConfig.typeOperation[0] = new char[DeviceConfig.processConfig[0].kolObr];
                 for (int i = 0; i < DeviceConfig.processConfig[0].kolObr; ++i) {
                     int a = r.nextInt(DeviceConfig.processConfig[0].kolCom / DeviceConfig.processConfig[0].kolObr) + i * (DeviceConfig.processConfig[0].prog.length / DeviceConfig.processConfig[0].kolObr);
-                    DeviceConfig.processConfig[0].prog[a] = -1;
-                    DeviceConfig.processConfig[0].prog[a + 1] = -2;
-                    DeviceConfig.processConfig[0].prog[a + 2] = -3;
+                    DeviceConfig.typeOperation[0][i] = getTypeOperation();
+                    if(DeviceConfig.typeOperation[0][i] == 'r'){
+                        DeviceConfig.processConfig[0].prog[a] = -1;
+                        DeviceConfig.processConfig[0].prog[a + 1] = -2;
+                        DeviceConfig.processConfig[0].prog[a + 2] = -3;
+                    }else{
+                        DeviceConfig.processConfig[0].prog[a] = -3;
+                        DeviceConfig.processConfig[0].prog[a + 1] = -1;
+                        DeviceConfig.processConfig[0].prog[a + 2] = -2;
+                    }
+                    
                 }
                 int k = 1;
                 for (int i = 0; i < DeviceConfig.processConfig[0].prog.length; i++) {
@@ -170,11 +185,20 @@ public class ConfigurationPanel extends javax.swing.JFrame {
                     return false; 
                 }   
                 DeviceConfig.processConfig[1].prog = new int[DeviceConfig.processConfig[1].kolCom + DeviceConfig.processConfig[1].kolObr * 3];//формирование программы
+                DeviceConfig.typeOperation[1] = new char[DeviceConfig.processConfig[1].kolObr];
                 for (int i = 0; i < DeviceConfig.processConfig[1].kolObr; ++i) {
                     int a = r.nextInt(DeviceConfig.processConfig[1].kolCom / DeviceConfig.processConfig[1].kolObr) + i * (DeviceConfig.processConfig[1].prog.length / DeviceConfig.processConfig[1].kolObr);
-                    DeviceConfig.processConfig[1].prog[a] = -1;
-                    DeviceConfig.processConfig[1].prog[a + 1] = -2;
-                    DeviceConfig.processConfig[1].prog[a + 2] = -3;
+                    DeviceConfig.typeOperation[1][i] = getTypeOperation();
+                    if(DeviceConfig.typeOperation[1][i] == 'r'){
+                        DeviceConfig.processConfig[1].prog[a] = -1;
+                        DeviceConfig.processConfig[1].prog[a + 1] = -2;
+                        DeviceConfig.processConfig[1].prog[a + 2] = -3;
+                    }else{
+                        DeviceConfig.processConfig[1].prog[a] = -3;
+                        DeviceConfig.processConfig[1].prog[a + 1] = -1;
+                        DeviceConfig.processConfig[1].prog[a + 2] = -2;
+                    }
+                    
                 }
                 int k = 1;
                 for (int i = 0; i < DeviceConfig.processConfig[1].prog.length; i++) {
@@ -219,11 +243,20 @@ public class ConfigurationPanel extends javax.swing.JFrame {
                     return false; 
                 }   
                 DeviceConfig.processConfig[2].prog = new int[DeviceConfig.processConfig[2].kolCom + DeviceConfig.processConfig[2].kolObr * 3];//формирование программы
+                DeviceConfig.typeOperation[2] = new char[DeviceConfig.processConfig[2].kolObr];
                 for (int i = 0; i < DeviceConfig.processConfig[2].kolObr; ++i) {
                     int a = r.nextInt(DeviceConfig.processConfig[2].kolCom / DeviceConfig.processConfig[2].kolObr) + i * (DeviceConfig.processConfig[2].prog.length / DeviceConfig.processConfig[2].kolObr);
-                    DeviceConfig.processConfig[2].prog[a] = -1;
-                    DeviceConfig.processConfig[2].prog[a + 1] = -2;
-                    DeviceConfig.processConfig[2].prog[a + 2] = -3;
+                    DeviceConfig.typeOperation[2][i] = getTypeOperation();
+                    if(DeviceConfig.typeOperation[2][i] == 'r'){
+                        DeviceConfig.processConfig[2].prog[a] = -1;
+                        DeviceConfig.processConfig[2].prog[a + 1] = -2;
+                        DeviceConfig.processConfig[2].prog[a + 2] = -3;
+                    }else{
+                        DeviceConfig.processConfig[2].prog[a] = -3;
+                        DeviceConfig.processConfig[2].prog[a + 1] = -1;
+                        DeviceConfig.processConfig[2].prog[a + 2] = -2;
+                    }
+                    
                 }
                 int k = 1;
                 for (int i = 0; i < DeviceConfig.processConfig[2].prog.length; i++) {
@@ -313,6 +346,9 @@ public class ConfigurationPanel extends javax.swing.JFrame {
         jTextField17 = new javax.swing.JTextField();
         jTextField18 = new javax.swing.JTextField();
         jTextField21 = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        jCheckBox4 = new javax.swing.JCheckBox();
+        jCheckBox5 = new javax.swing.JCheckBox();
         jPanel4 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -385,7 +421,7 @@ public class ConfigurationPanel extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(252, 216, 179));
 
-        jLabel1.setText("Ггц   Частота процессора");
+        jLabel1.setText("Операций в секунду (в миллиардах)");
 
         jLabel2.setText("Гб   Ёмкость ОП");
 
@@ -482,7 +518,7 @@ public class ConfigurationPanel extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(252, 216, 179));
 
-        jLabel9.setText("Кол-во процессорных команд (в миллиардах)");
+        jLabel9.setText("Кол-во операций (в миллиардах)");
 
         jLabel10.setText("Количество обращений к файлу");
 
@@ -624,24 +660,39 @@ public class ConfigurationPanel extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jLabel17.setText("Типы оброщений к файлу:");
+
+        jCheckBox4.setSelected(true);
+        jCheckBox4.setText(" Чтение");
+
+        jCheckBox5.setText("Запись");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel17)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCheckBox5)
+                            .addComponent(jCheckBox4))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -665,6 +716,12 @@ public class ConfigurationPanel extends javax.swing.JFrame {
                         .addComponent(jLabel12)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel14)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel17)
+                    .addComponent(jCheckBox4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCheckBox5)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -909,6 +966,8 @@ static JFrame frame;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JCheckBox jCheckBox3;
+    private javax.swing.JCheckBox jCheckBox4;
+    private javax.swing.JCheckBox jCheckBox5;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JFrame jFrame2;
@@ -920,6 +979,7 @@ static JFrame frame;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1064,5 +1124,14 @@ static JFrame frame;
         } else {
             dos.writeBoolean(false);
         }
+    }
+    Random random = new Random();
+    private char getTypeOperation() {
+        ArrayList<Character> types= new ArrayList<Character>();
+        if(jCheckBox4.isSelected())
+            types.add('r');
+        if(jCheckBox5.isSelected())
+            types.add('w');
+        return types.get(random.nextInt(types.size()));
     }
 }

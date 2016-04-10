@@ -278,7 +278,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="&#x413;&#x433;&#x446;   &#x427;&#x430;&#x441;&#x442;&#x43e;&#x442;&#x430; &#x43f;&#x440;&#x43e;&#x446;&#x435;&#x441;&#x441;&#x43e;&#x440;&#x430;"/>
+            <Property name="text" type="java.lang.String" value="&#x41e;&#x43f;&#x435;&#x440;&#x430;&#x446;&#x438;&#x439; &#x432; &#x441;&#x435;&#x43a;&#x443;&#x43d;&#x434;&#x443; (&#x432; &#x43c;&#x438;&#x43b;&#x43b;&#x438;&#x430;&#x440;&#x434;&#x430;&#x445;)"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextField2">
@@ -344,18 +344,30 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jPanel6" min="-2" pref="116" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel9" min="-2" pref="330" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jPanel6" min="-2" pref="116" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel9" min="-2" pref="330" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jCheckBox5" min="-2" max="-2" attributes="0"/>
+                              <Component id="jCheckBox4" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -386,6 +398,13 @@
                           <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
+                      <Component id="jCheckBox4" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jCheckBox5" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -394,7 +413,7 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="jLabel9">
           <Properties>
-            <Property name="text" type="java.lang.String" value="&#x41a;&#x43e;&#x43b;-&#x432;&#x43e; &#x43f;&#x440;&#x43e;&#x446;&#x435;&#x441;&#x441;&#x43e;&#x440;&#x43d;&#x44b;&#x445; &#x43a;&#x43e;&#x43c;&#x430;&#x43d;&#x434; (&#x432; &#x43c;&#x438;&#x43b;&#x43b;&#x438;&#x430;&#x440;&#x434;&#x430;&#x445;)"/>
+            <Property name="text" type="java.lang.String" value="&#x41a;&#x43e;&#x43b;-&#x432;&#x43e; &#x43e;&#x43f;&#x435;&#x440;&#x430;&#x446;&#x438;&#x439; (&#x432; &#x43c;&#x438;&#x43b;&#x43b;&#x438;&#x430;&#x440;&#x434;&#x430;&#x445;)"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel10">
@@ -627,6 +646,22 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JLabel" name="jLabel17">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#x422;&#x438;&#x43f;&#x44b; &#x43e;&#x431;&#x440;&#x43e;&#x449;&#x435;&#x43d;&#x438;&#x439; &#x43a; &#x444;&#x430;&#x439;&#x43b;&#x443;:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="jCheckBox4">
+          <Properties>
+            <Property name="selected" type="boolean" value="true"/>
+            <Property name="text" type="java.lang.String" value=" &#x427;&#x442;&#x435;&#x43d;&#x438;&#x435;"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="jCheckBox5">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#x417;&#x430;&#x43f;&#x438;&#x441;&#x44c;"/>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanel4">

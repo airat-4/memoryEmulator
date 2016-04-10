@@ -51,7 +51,6 @@ public class ICH extends Conditionable{
                 graphics.fillPolygon(poly0);
                 graphics.fillPolygon(polyVZU0);
                 if(getCondition() == Condition.ACTIVE_WITH_FILE){
-                    graphics.setColor(Color.RED);
                     graphics.fillRect(90, 140, 40, 50);
                     graphics.fillRect(220, 60, 70, 30);
                 }
@@ -61,7 +60,6 @@ public class ICH extends Conditionable{
                 graphics.fillPolygon(poly1);
                 graphics.fillPolygon(polyVZU1);
                 if(getCondition() == Condition.ACTIVE_WITH_FILE){
-                    graphics.setColor(Color.RED);
                     graphics.fillRect(450, 140, 40, 50);
                     graphics.fillRect(290, 60, 70, 30);
                 }
