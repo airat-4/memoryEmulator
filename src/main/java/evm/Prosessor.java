@@ -153,5 +153,22 @@ public class Prosessor extends Conditionable {
         }
         return null;
     }
-    
+
+    public char getType(){
+        for (Process pr :process) {
+            if(!(pr.getTypeOperation() == TypeOperation.ACTION_COMANDS)){
+                return pr.getType();
+            }
+        }
+        return 'n';
+    }
+
+    public TypeOperation getTypeOperation(){
+        for (Process pr :process) {
+            if(!(pr.getTypeOperation() == TypeOperation.ACTION_COMANDS)){
+                return pr.getTypeOperation();
+            }
+        }
+        return TypeOperation.ACTION_COMANDS;
+    }
 }

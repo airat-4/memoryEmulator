@@ -4,6 +4,8 @@ import java.awt.Image;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static evm.DeviceConfig.*;
+import static evm.DeviceConfig.typeOperation;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -20,14 +22,16 @@ public class Process {
     private boolean finished;
     private boolean waiting;
     private int currentOperation;
+    private int currentType;
     private static int SEARCH_MARK_TIME = 1000;
+    private static int ANIMATION_TIME = 1000;
     private Plata plata;
     private Prosessor prosessor;
     private BufferedImage image = new BufferedImage(201, 21, BufferedImage.TYPE_INT_RGB);
     private Graphics graphics = image.getGraphics();
     private static final ExecutorService threadPool = Executors.newSingleThreadExecutor();
     private int pdpTimel;
-    private TypeOperation typeOperation;
+    private TypeOperation typeOperation = TypeOperation.ACTION_COMANDS;
 
     public TypeOperation getTypeOperation() {
         return typeOperation;
@@ -127,15 +131,7 @@ public class Process {
         return false;
     }
 
-    private boolean searchMark() {
-        if (plata.gmch.getCondition() == Condition.INACTIVE) {
-            
-            
-        } else {
-            return false;
-        }
-        return true;
-    }
+
 
     private boolean pdp() {
         typeOperation = TypeOperation.SEARCH_MARK;
@@ -159,6 +155,7 @@ public class Process {
                             currentOperation++;
                             //  ПДП
                             typeOperation = TypeOperation.PDP;
+
                             prosessor.setTypeOperation(TypeOperation.PDP);
                             plata.memoryShina.setCondition(Condition.ACTIVE);
                             plata.gmch.setCondition(Condition.ACTIVE);
@@ -167,6 +164,17 @@ public class Process {
                             plata.memory.setCondition(Condition.ACTIVE_WITH_FILE);
                             plata.memory.setIdProcess(id);
                             plata.vzu[processConfig[id].numVzu].setIdProcess(id);
+                            plata.etapPDP = 1;
+                            if(Model.model != null)
+                                Model.model.paintTread.interrupt();
+                            for (int i = 0; i < 6; i++) {
+                                try {
+                                    Thread.sleep(ANIMATION_TIME/6);
+                                    plata.etapPDP = 2+i;
+                                    if(Model.model != null)
+                                        Model.model.paintTread.interrupt();
+                                } catch (InterruptedException ex) {}
+                            }
                             try {
                                 Thread.sleep(pdpTimel);
                             } catch (InterruptedException ex) {}
@@ -177,6 +185,8 @@ public class Process {
                             plata.gmch.setCondition(Condition.INACTIVE);
                             waiting = false;
                             currentOperation++;
+                            currentType++;
+                            plata.etapPDP = 0;
                         }
                     });
 
@@ -224,6 +234,12 @@ public class Process {
             Thread.sleep((int) (1000 / perfomens));
         } catch (InterruptedException ex) {
         }
+    }
+
+    public char getType(){
+        if(currentType >= DeviceConfig.typeOperation[id].length)
+            return 'n';
+        return DeviceConfig.typeOperation[id][currentType];
     }
     
 }

@@ -5,15 +5,10 @@
  */
 package evm;
 
-import java.awt.BasicStroke;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
 /**
@@ -33,6 +28,11 @@ public class StartingWindow extends javax.swing.JFrame {
 
             @Override
             public void run() {
+                try {
+                    sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 DeviceConfig.GMSHPerfomens = 400;
                 DeviceConfig.ICHPerfomens = 300;
                 DeviceConfig.SystemShinaPerfomens = 200;

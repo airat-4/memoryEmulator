@@ -26,7 +26,8 @@ public class SystemShina extends Conditionable{
         int[] arrayY = {20, 0, 15, 15, 80, 80, 100, 80, 80, 25, 25, 40};
         Polygon poly = new Polygon(arrayX, arrayY, arrayY.length);
         graphics.setColor(plata.prosessor.getColor());
-        if (getCondition() != Condition.INACTIVE) {
+        if (plata.prosessor.getTypeOperation() == TypeOperation.SEARCH_MARK
+                ||plata.prosessor.getTypeOperation() == TypeOperation.PROCESSING_FILE) {
             graphics.fillPolygon(poly);
         }
         graphics.setColor(Color.BLACK);

@@ -27,8 +27,23 @@ public class MemoryShina extends Conditionable{
         int[] arrayX = {0, 20, 20 , d + 20, 20 + d, 40 + d, 20 + d, 20 + d, 20, 20};
         int[] arrayY = {20, 40, 25, 25, 40, 20, 0, 15, 15 , 0};
         Polygon poly = new Polygon(arrayX, arrayY, arrayX.length);
-        if (getCondition() == Condition.ACTIVE) {
+        if (plata.prosessor.getTypeOperation() == TypeOperation.PROCESSING_FILE) {
             graphics.fillPolygon(poly);
+        }
+        if (plata.prosessor.getTypeOperation() == TypeOperation.SEARCH_MARK) {
+            if(plata.prosessor.getType() == 'w')
+                graphics.fillPolygon(poly);
+        }
+        if(plata.prosessor.getTypeOperation() == TypeOperation.PDP){
+            if(plata.prosessor.getType() == 'r'){
+                if(plata.etapPDP == 7){
+                    graphics.fillPolygon(poly);
+                }
+            }else{
+                if(plata.etapPDP >= 1){
+                    graphics.fillPolygon(poly);
+                }
+            }
         }
         graphics.setColor(Color.BLACK);
         graphics.drawPolygon(poly);

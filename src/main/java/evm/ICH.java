@@ -1,0 +1,151 @@
+package evm;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Polygon;
+import java.awt.image.BufferedImage;
+
+/**
+ *
+ * @author airat
+ */
+public class ICH extends Conditionable{
+    private BufferedImage image = new BufferedImage(580, 211, BufferedImage.TYPE_INT_RGB);
+    private Graphics graphics = image.getGraphics();
+    private Plata plata;
+
+    public ICH(Plata plata) {
+        this.plata = plata;
+    }
+    public Image paint() {//210 260
+        graphics.setColor(Color.WHITE);
+        graphics.fillRect(0, 0, image.getWidth(), image.getHeight());
+        int x = 265, y = 0, d = 20;
+        int[] arrayX = {x + 20, 40 + x, 25 + x, x + 25, 40 + x, 20 + x, x, 15 + x, 15 + x, x};
+        int[] arrayY = {y, y + 20, y + 20, y + d + 20, y + d + 20, 40 + d + y, y + d + 20, 20 + d + y, 20 + y, 20 + y};
+        Polygon poly = new Polygon(arrayX, arrayY, arrayX.length);
+        int[] arrayX0 = {230, 240, 130, 130};
+        int[] arrayY0 = {90, 90, 170, 160};
+        Polygon poly0 = new Polygon(arrayX0, arrayY0, arrayX0.length);
+        int[] arrayX1 = {340, 350, 450, 450};
+        int[] arrayY1 = {90, 90, 160, 170};
+        Polygon poly1 = new Polygon(arrayX1, arrayY1, arrayX1.length);
+        x = 0; y = 160; d = 50;
+        int[] arrayVZU0X = {x, 20 + x, 20 + x, x + d + 20, 20 + x + d, 40 + d + x, 20 + d + x, 20 + d + x, 20 + x, 20 + x};
+        int[] arrayVZU0Y = {y, y - 20, y - 5, y - 5, y - 20, y, 20 + y, 5 + y, 5 + y, 20 + y};
+        Polygon polyVZU0 = new Polygon(arrayVZU0X, arrayVZU0Y, arrayVZU0X.length);
+        x = 490; y = 160; d = 50;
+        int[] arrayVZU1X = {x, 20 + x, 20 + x, x + d + 20, 20 + x + d, 40 + d + x, 20 + d + x, 20 + d + x, 20 + x, 20 + x};
+        int[] arrayVZU1Y = {y, y - 20, y - 5, y - 5, y - 20, y, 20 + y, 5 + y, 5 + y, 20 + y};
+        Polygon polyVZU1 = new Polygon(arrayVZU1X, arrayVZU1Y, 10);
+        graphics.setColor(plata.prosessor.getColor());
+        if(plata.prosessor.getTypeOperation() == TypeOperation.SEARCH_MARK){
+            if(plata.prosessor.getType() == 'r'){
+                graphics.fillPolygon(poly);
+                if (plata.vzu[0].getCondition() != Condition.INACTIVE) {
+                    graphics.fillPolygon(poly0);
+                    graphics.fillPolygon(polyVZU0);
+                    graphics.fillRect(90, 140, 40, 50);
+                    graphics.fillRect(220, 60, 70, 30);
+                }
+                if (plata.vzu[1].getCondition() != Condition.INACTIVE) {
+                    graphics.fillPolygon(poly1);
+                    graphics.fillPolygon(polyVZU1);
+                    graphics.fillRect(450, 140, 40, 50);
+                    graphics.fillRect(290, 60, 70, 30);
+                }
+            }
+        }
+        if(plata.prosessor.getTypeOperation() == TypeOperation.PDP){
+            if(plata.prosessor.getType() == 'r'){
+                if(plata.etapPDP >= 1) {
+                    if (plata.vzu[0].getCondition() != Condition.INACTIVE) {
+                        graphics.fillPolygon(polyVZU0);
+                    }
+                    if (plata.vzu[1].getCondition() != Condition.INACTIVE) {
+                        graphics.fillPolygon(polyVZU1);
+                    }
+                }
+                if(plata.etapPDP >= 2) {
+                    if (plata.vzu[0].getCondition() != Condition.INACTIVE) {
+                        graphics.fillRect(90, 140, 40, 50);
+                    }
+                    if (plata.vzu[1].getCondition() != Condition.INACTIVE) {
+                        graphics.fillRect(450, 140, 40, 50);
+                    }
+                }
+                if(plata.etapPDP >= 3) {
+                    if (plata.vzu[0].getCondition() != Condition.INACTIVE) {
+                        graphics.fillPolygon(poly0);
+                    }
+                    if (plata.vzu[1].getCondition() != Condition.INACTIVE) {
+                        graphics.fillPolygon(poly1);
+                    }
+                }
+                if(plata.etapPDP >= 4) {
+                    if (plata.vzu[0].getCondition() != Condition.INACTIVE) {
+                        graphics.fillRect(220, 60, 70, 30);
+                    }
+                    if (plata.vzu[1].getCondition() != Condition.INACTIVE) {
+                        graphics.fillRect(290, 60, 70, 30);
+                    }
+                }
+                if(plata.etapPDP >= 5) {
+                    graphics.fillPolygon(poly);
+                }
+            }else{
+                if(plata.etapPDP >= 7) {
+                    if (plata.vzu[0].getCondition() != Condition.INACTIVE) {
+                        graphics.fillPolygon(polyVZU0);
+                    }
+                    if (plata.vzu[1].getCondition() != Condition.INACTIVE) {
+                        graphics.fillPolygon(polyVZU1);
+                    }
+                }
+                if(plata.etapPDP >= 6) {
+                    if (plata.vzu[0].getCondition() != Condition.INACTIVE) {
+                        graphics.fillRect(90, 140, 40, 50);
+                    }
+                    if (plata.vzu[1].getCondition() != Condition.INACTIVE) {
+                        graphics.fillRect(450, 140, 40, 50);
+                    }
+                }
+                if(plata.etapPDP >= 5) {
+                    if (plata.vzu[0].getCondition() != Condition.INACTIVE) {
+                        graphics.fillPolygon(poly0);
+                    }
+                    if (plata.vzu[1].getCondition() != Condition.INACTIVE) {
+                        graphics.fillPolygon(poly1);
+                    }
+                }
+                if(plata.etapPDP >= 4) {
+                    if (plata.vzu[0].getCondition() != Condition.INACTIVE) {
+                        graphics.fillRect(220, 60, 70, 30);
+                    }
+                    if (plata.vzu[1].getCondition() != Condition.INACTIVE) {
+                        graphics.fillRect(290, 60, 70, 30);
+                    }
+                }
+                if(plata.etapPDP >= 3) {
+                    graphics.fillPolygon(poly);
+                }
+            }
+        }
+        graphics.setColor(Color.BLACK);
+        graphics.drawPolygon(poly);
+        graphics.drawRect(90, 60, 400, 150);
+        graphics.drawRect(220, 60, 70, 30);//команда
+        graphics.drawRect(290, 60, 70, 30);//команда
+        graphics.drawRect(90, 140, 40, 50);// порт 0
+        graphics.drawRect(450, 140, 40, 50);// порт 1
+        graphics.drawPolygon(poly0);
+        graphics.drawPolygon(poly1);
+        graphics.drawString("Южный мост ( ICH ) ", 100, 50);
+        graphics.drawString("Порт 0", 92, 140);
+        graphics.drawString("Порт 1", 452, 140);
+        graphics.drawPolygon(polyVZU0);
+        graphics.drawPolygon(polyVZU1);
+        return image;
+    }
+}

@@ -26,7 +26,7 @@ public class Plata{
     private BufferedImage image = new BufferedImage(1300, 550, BufferedImage.TYPE_INT_RGB);
     private Graphics graphics = image.getGraphics();
     private Color activeColor = new Color(249, 201, 153);
-    
+    int etapPDP;
     {
         prosessor = new Prosessor(this);
         systemShina = new SystemShina(this);

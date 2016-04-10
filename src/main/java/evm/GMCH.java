@@ -22,19 +22,35 @@ public class GMCH extends Conditionable{
         graphics.setColor(Color.WHITE);
         graphics.fillRect(0, 0, image.getWidth(), image.getHeight());
         graphics.setColor(plata.prosessor.getColor());
-        if (getCondition() == Condition.ACTIVE_WITH_FILE) {
+        if(plata.prosessor.getTypeOperation() == TypeOperation.SEARCH_MARK){
+            if(plata.prosessor.getType() == 'r'){
+                graphics.fillRect(175, 0, 40, 20);
+                graphics.fillRect(190, 20, 10, 80);
+            }else{
+                graphics.fillRect(190, 20, 10, 40);
+                graphics.fillRect(190, 50, 210, 10);
+                graphics.fillRect(175, 0, 40, 20);
+            }
+        }
+        if(plata.prosessor.getTypeOperation() == TypeOperation.PROCESSING_FILE){
             graphics.fillRect(190, 20, 10, 40);
             graphics.fillRect(190, 50, 210, 10);
             graphics.fillRect(175, 0, 40, 20);
         }
-        graphics.setColor(plata.prosessor.getColor());
-        if (plata.ich.getCondition() == Condition.ACTIVE) {
-            graphics.fillRect(190, 20, 10, 80);
+        if(plata.prosessor.getTypeOperation() == TypeOperation.PDP){
+            if(plata.prosessor.getType() == 'r'){
+                if(plata.etapPDP >= 6) {
+                    graphics.fillRect(190, 60, 10, 40);
+                    graphics.fillRect(190, 50, 210, 10);
+                }
+            }else{
+                if(plata.etapPDP >= 2){
+                    graphics.fillRect(190, 60, 10, 40);
+                    graphics.fillRect(190, 50, 210, 10);
+                }
+            }
         }
-        if (plata.ich.getCondition() == Condition.ACTIVE_WITH_FILE) {
-            graphics.fillRect(190, 50, 210, 10);
-            graphics.fillRect(190, 50, 10, 50);
-        }
+
         graphics.setColor(Color.BLACK);
         graphics.drawRect(0, 0, 400, 100);
         graphics.drawRect(175, 0, 40, 20);//команда

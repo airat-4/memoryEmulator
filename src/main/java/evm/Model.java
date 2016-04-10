@@ -4,23 +4,12 @@
  */
 package evm;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Polygon;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.Timer;
 
 /**
  *
@@ -28,9 +17,9 @@ import javax.swing.Timer;
  */
 //------------------------------------------------------------------------------
 public class Model extends javax.swing.JPanel {
-
+    static Model model;
     private Plata plata = new Plata();
-    private Thread paintTread;
+    Thread paintTread;
     private Thread actionThread;
     private static final int FPS = 3;
     private Image back;
@@ -38,6 +27,7 @@ public class Model extends javax.swing.JPanel {
     private boolean active;
 
     public Model() {
+        model = this;
         try {
             back = ImageIO.read(getClass().getResource("back.png"));
             activeBack = ImageIO.read(getClass().getResource("active_back.png"));
@@ -52,7 +42,6 @@ public class Model extends javax.swing.JPanel {
                     try {
                         sleep(1000 / FPS);
                     } catch (InterruptedException ex) {
-                        Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     repaint();
                 }
