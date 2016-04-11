@@ -36,7 +36,9 @@ public class Process {
     public TypeOperation getTypeOperation() {
         return typeOperation;
     }
-    
+    public int getCurrentOperation(){
+        return processConfig[id].prog[currentOperation];
+    }
     public Process(int id, Plata plata, Prosessor prosessor) {
         this.id = id;
         this.plata = plata;

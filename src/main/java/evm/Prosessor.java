@@ -30,6 +30,7 @@ public class Prosessor extends Conditionable {
     private BufferedImage image = new BufferedImage(381, 150, BufferedImage.TYPE_INT_RGB);
     private Graphics graphics = image.getGraphics();
     private Color activeColor = new Color(249, 201, 153);
+    private boolean b;
 
     public Prosessor(Plata plata) {
         process = new Process[3];
@@ -92,21 +93,6 @@ public class Prosessor extends Conditionable {
             graphics.fillRect(360, 40, 20, 20);
         }
         graphics.setColor(Color.BLACK);
-        graphics.drawRect(360, 40, 20, 20);
-        if(typeOperation == TypeOperation.SEARCH_MARK){//команда
-            graphics.setColor(Color.RED);
-            graphics.fillRect(360, 60, 20, 40);
-        }
-        if(typeOperation == TypeOperation.PDP){
-            graphics.setColor(Color.GREEN);
-            graphics.fillRect(360, 60, 20, 40);
-        }
-        if(typeOperation == TypeOperation.PROCESSING_FILE){
-            graphics.setColor(Color.BLUE);
-            graphics.fillRect(360, 60, 20, 40);
-        }
-        graphics.setColor(Color.BLACK);
-        graphics.drawRect(360, 60, 20, 40);
         for (int i = 0; i < DeviceConfig.processConfig.length; ++i) {
             graphics.drawLine(290, 40 + i * 30, 310, 40 + i * 30);
         }
@@ -116,14 +102,40 @@ public class Prosessor extends Conditionable {
             graphics.drawString("Задача " + (i + 1), 0, 45 + 30 * i);
             graphics.drawImage(process[i].paint(), 90, 30 + i * 30, null);
         }
-        if(getCondition() != Condition.INACTIVE){
-            graphics.drawString("Задача " + (currentProcess +1) + ">", 0, 45 + 30 * currentProcess);
+        if(b && typeOperation == TypeOperation.SEARCH_MARK){//команда
+            b = false;
+            graphics.setColor(Color.RED);
+            graphics.fillRect(360, 60, 20, 40);
         }
+        if(b && typeOperation == TypeOperation.PDP){
+            b = false;
+            graphics.setColor(Color.GREEN);
+            graphics.fillRect(360, 60, 20, 40);
+        }
+        if(getCondition() != Condition.INACTIVE){
+            graphics.drawString("Задача " + (currentProcess + 1) + ">", 0, 45 + 30 * currentProcess);
+            graphics.setColor(new Color(100, 0, 0));
+            graphics.drawRect(89, 29 + currentProcess * 30, 202, 22);
+            int type = process[currentProcess].getCurrentOperation();
+
+            if(type == -3){
+                graphics.setColor(Color.BLUE);
+                graphics.fillRect(360, 60, 20, 40);
+            }
+            if(type > 0){
+                graphics.setColor(Color.BLACK);
+                graphics.drawString("" + type, 362, 85);
+            }
+        }
+        graphics.setColor(Color.BLACK);
+        graphics.drawRect(360, 40, 20, 20);
+        graphics.drawRect(360, 60, 20, 40);
         return image;
     }
 
     public void setTypeOperation(TypeOperation typeOperation) {
         this.typeOperation = typeOperation;
+        b = true;
     }
 
     public long getStartTime() {
