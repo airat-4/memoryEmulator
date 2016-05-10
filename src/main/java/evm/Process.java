@@ -31,6 +31,15 @@ public class Process {
     private static final ExecutorService threadPool = Executors.newSingleThreadExecutor();
     private int pdpTime;
     private TypeOperation typeOperation = TypeOperation.ACTION_COMANDS;
+    public Color getProcessColor() {
+        return processColor;
+    }
+
+    public void setProcessColor(Color processColor) {
+        this.processColor = processColor;
+    }
+
+    private Color processColor;
 
     public TypeOperation getTypeOperation() {
         return typeOperation;
@@ -86,34 +95,40 @@ public class Process {
     public Image paint() {//90 30
         graphics.setColor(Color.WHITE);
         graphics.fillRect(0, 0, image.getWidth(), image.getHeight());
-        if (!finished) {
-            for (int j = 0; j < 5; ++j) {
-                if (currentOperation + j == DeviceConfig.processConfig[id].prog.length) {
-                    break;
-                }
-                if (DeviceConfig.processConfig[id].prog[currentOperation + j] > 0) {
-                    graphics.setColor(Color.BLACK);
-                    graphics.drawString(Integer.toString(DeviceConfig.processConfig[id].prog[currentOperation + j]), 170 - j * 40, 15);
-                }
-                if (DeviceConfig.processConfig[id].prog[currentOperation + j] == -1) {
-                    graphics.setColor(Color.RED);
-                    graphics.fillRect(160 - j * 40, 0, 40, 20);
-                }
-                if (DeviceConfig.processConfig[id].prog[currentOperation + j] == -2) {
-                    graphics.setColor(Color.GREEN);
-                    graphics.fillRect(160 - j * 40, 0, 40, 20);
-                }
-                if (DeviceConfig.processConfig[id].prog[currentOperation + j] == -3) {
-                    graphics.setColor(Color.BLUE);
-                    graphics.fillRect(160 - j * 40, 0, 40, 20);
-                }
 
+        if (!finished) {
+            int amountOperations = 0;
+            int type = 0;
+            int nextType;
+            for (int i = currentOperation; i <  DeviceConfig.processConfig[id].prog.length; ++i){
+                if (amountOperations == 5)
+                    break;
+                nextType = (int)Math.signum(DeviceConfig.processConfig[id].prog[i]);
+                if(type != nextType && nextType == 1)
+                    ++amountOperations;
+                type = nextType;
+            }
+            for (int j = 0; j < amountOperations; ++j) {
+                graphics.setColor(processColor);
+                graphics.fillRect(160 - j * 40, 0, 40, 20);
+            }
+            graphics.setColor(Color.BLACK);
+            for (int j = 0; j < 5; ++j) {
+                graphics.drawRect(j * 40, 0, 40, 20);
+            }
+            for (int j = 0; j < amountOperations -1; ++j) {
+                graphics.setColor(Color.black);
+                graphics.fillOval(156 - j * 40, 6, 8, 8);
+                graphics.setColor(Color.red);
+                graphics.fillOval(157 - j * 40, 7, 6, 6);
+            }
+        }else{
+            graphics.setColor(Color.BLACK);
+            for (int j = 0; j < 5; ++j) {
+                graphics.drawRect(j * 40, 0, 40, 20);
             }
         }
-        graphics.setColor(Color.BLACK);
-        for (int j = 0; j < 5; ++j) {
-            graphics.drawRect(j * 40, 0, 40, 20);
-        }
+
         return image;
     }
 

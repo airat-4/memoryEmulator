@@ -36,6 +36,10 @@ public class Prosessor extends Conditionable {
         for (int i = 0; i < process.length; i++) {
             process[i] = new Process(i, plata, this);
         }
+        process[0].setProcessColor(Color.cyan);
+        process[1].setProcessColor(Color.magenta);
+        process[2].setProcessColor(Color.gray);
+
     }
 
     public boolean action() {
@@ -104,18 +108,11 @@ public class Prosessor extends Conditionable {
 
         if(getCondition() != Condition.INACTIVE){
             graphics.drawString("Задача " + (currentProcess + 1) + ">", 0, 45 + 30 * currentProcess);
-            graphics.setColor(new Color(100, 0, 0));
+            graphics.setColor(new Color(0, 0, 220));
             graphics.drawRect(89, 29 + currentProcess * 30, 202, 22);
             int type = process[currentProcess].getCurrentOperation();
-
-            if(type == -3){
-                graphics.setColor(Color.BLUE);
-                graphics.fillRect(360, 60, 20, 40);
-            }
-            if(type > 0){
-                graphics.setColor(Color.BLACK);
-                graphics.drawString("" + type, 362, 85);
-            }
+            graphics.setColor(process[currentProcess].getProcessColor());
+            graphics.fillRect(360, 60, 20, 40);
         }
         graphics.setColor(Color.BLACK);
         graphics.drawRect(360, 40, 20, 20);
