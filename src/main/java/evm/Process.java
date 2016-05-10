@@ -4,7 +4,6 @@ import java.awt.Image;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static evm.DeviceConfig.*;
-import static evm.DeviceConfig.typeOperation;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -30,7 +29,7 @@ public class Process {
     private BufferedImage image = new BufferedImage(201, 21, BufferedImage.TYPE_INT_RGB);
     private Graphics graphics = image.getGraphics();
     private static final ExecutorService threadPool = Executors.newSingleThreadExecutor();
-    private int pdpTimel;
+    private int pdpTime;
     private TypeOperation typeOperation = TypeOperation.ACTION_COMANDS;
 
     public TypeOperation getTypeOperation() {
@@ -60,7 +59,7 @@ public class Process {
         if (minPerfomans > GMSHPerfomens) {
             minPerfomans = GMSHPerfomens;
         }
-        pdpTimel = (int) ((processConfig[id].dlWrite * 1000) / (processConfig[id].kolObr * minPerfomans));
+        pdpTime = (int) ((processConfig[id].dlWrite * 1000) / minPerfomans);
     }
 
     public boolean action() {
@@ -178,7 +177,7 @@ public class Process {
                                 } catch (InterruptedException ex) {}
                             }
                             try {
-                                Thread.sleep(pdpTimel);
+                                Thread.sleep(pdpTime);
                             } catch (InterruptedException ex) {}
                             plata.memoryShina.setCondition(Condition.INACTIVE);
                             plata.ich.setCondition(Condition.INACTIVE);

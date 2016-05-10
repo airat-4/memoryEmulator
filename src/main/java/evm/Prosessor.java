@@ -30,7 +30,6 @@ public class Prosessor extends Conditionable {
     private BufferedImage image = new BufferedImage(381, 150, BufferedImage.TYPE_INT_RGB);
     private Graphics graphics = image.getGraphics();
     private Color activeColor = new Color(249, 201, 153);
-    private boolean b;
 
     public Prosessor(Plata plata) {
         process = new Process[3];
@@ -102,16 +101,7 @@ public class Prosessor extends Conditionable {
             graphics.drawString("Задача " + (i + 1), 0, 45 + 30 * i);
             graphics.drawImage(process[i].paint(), 90, 30 + i * 30, null);
         }
-        if(b && typeOperation == TypeOperation.SEARCH_MARK){//команда
-            b = false;
-            graphics.setColor(Color.RED);
-            graphics.fillRect(360, 60, 20, 40);
-        }
-        if(b && typeOperation == TypeOperation.PDP){
-            b = false;
-            graphics.setColor(Color.GREEN);
-            graphics.fillRect(360, 60, 20, 40);
-        }
+
         if(getCondition() != Condition.INACTIVE){
             graphics.drawString("Задача " + (currentProcess + 1) + ">", 0, 45 + 30 * currentProcess);
             graphics.setColor(new Color(100, 0, 0));
@@ -135,7 +125,6 @@ public class Prosessor extends Conditionable {
 
     public void setTypeOperation(TypeOperation typeOperation) {
         this.typeOperation = typeOperation;
-        b = true;
     }
 
     public long getStartTime() {
