@@ -23,6 +23,8 @@ public class Plata{
     MemoryShina memoryShina;
     Memory memory;
     VZU[] vzu;
+    boolean prerivanie;
+    Color prerivanieColor = Color.orange;
     private BufferedImage image = new BufferedImage(1300, 550, BufferedImage.TYPE_INT_RGB);
     private Graphics graphics = image.getGraphics();
     private Color activeColor = new Color(249, 201, 153);
@@ -46,7 +48,7 @@ public class Plata{
     public Image paint() {
         graphics.setColor(Color.WHITE);
         graphics.fillRect(0, 0, image.getWidth(), image.getHeight());
-        graphics.drawImage(prosessor.paint(), 20, 20, null);
+        graphics.drawImage(prosessor.paint(), 0, 20, null);
         graphics.drawImage(systemShina.paint(), 401, 60, null);
         graphics.drawImage(gmch.paint(), 300, 160, null);
         graphics.drawImage(memoryShina.paint(), 700, 195, null);
@@ -62,10 +64,13 @@ public class Plata{
         graphics.fillRect(600, 40, 20, 10);
         graphics.setColor(Color.BLUE);
         graphics.fillRect(600, 60, 20, 10);
+        graphics.setColor(prerivanieColor);
+        graphics.fillRect(600, 80, 20, 10);
         graphics.setColor(Color.BLACK);
         graphics.drawString("Поиск начальной метки файла", 630, 30);
         graphics.drawString("Прямой доступ к памяти", 630, 50);
         graphics.drawString("Оброботка файла процессором", 630, 70);
+        graphics.drawString("Прерывание 'окончание ПДП'", 630, 90);
         graphics.drawString("Нажмите Esc для возврата к настройкам", 30, 15);
         int x = 160, y = 215, d = 100;
         int[] arrayX = {x, 20 + x, 20 + x, x + d + 20, 20 + x + d, 40 + d + x, 20 + d + x, 20 + d + x, 20 + x, 20 + x};

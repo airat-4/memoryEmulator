@@ -57,6 +57,22 @@ public class ICH extends Conditionable{
                 }
             }
         }
+        if(plata.prerivanie){
+            graphics.setColor(plata.prerivanieColor);
+            graphics.fillPolygon(poly);
+            if (plata.vzu[0].getCondition() != Condition.INACTIVE) {
+                graphics.fillPolygon(poly0);
+                graphics.fillPolygon(polyVZU0);
+                graphics.fillRect(90, 140, 40, 50);
+                graphics.fillRect(220, 60, 70, 30);
+            }
+            if (plata.vzu[1].getCondition() != Condition.INACTIVE) {
+                graphics.fillPolygon(poly1);
+                graphics.fillPolygon(polyVZU1);
+                graphics.fillRect(450, 140, 40, 50);
+                graphics.fillRect(290, 60, 70, 30);
+            }
+        }
         if(plata.prosessor.getTypeOperation() == TypeOperation.PDP){
             if(plata.prosessor.getType() == 'r'){
                 if(plata.etapPDP >= 1) {

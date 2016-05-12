@@ -100,6 +100,7 @@ public class Process {
             int amountOperations = 0;
             int type = 0;
             int nextType;
+
             for (int i = currentOperation; i <  DeviceConfig.processConfig[id].prog.length; ++i){
                 if (amountOperations == 5)
                     break;
@@ -121,6 +122,12 @@ public class Process {
                 graphics.fillOval(156 - j * 40, 6, 8, 8);
                 graphics.setColor(Color.red);
                 graphics.fillOval(157 - j * 40, 7, 6, 6);
+            }
+            if(DeviceConfig.processConfig[id].prog[currentOperation] < 0){
+                graphics.setColor(Color.black);
+                graphics.fillOval(155+40, 5, 10, 10);
+                graphics.setColor(Color.red);
+                graphics.fillOval(157+40, 7, 6, 6);
             }
         }else{
             graphics.setColor(Color.BLACK);
@@ -194,6 +201,14 @@ public class Process {
                             try {
                                 Thread.sleep(pdpTime);
                             } catch (InterruptedException ex) {}
+                            plata.prerivanie = true;
+                            plata.etapPDP = 0;
+                            typeOperation = TypeOperation.ACTION_COMANDS;
+                            prosessor.prerivanie.add(id);
+                            try {
+                                Thread.sleep(SEARCH_MARK_TIME/2);
+                            } catch (InterruptedException ex) { }
+                            plata.prerivanie = false;
                             plata.memoryShina.setCondition(Condition.INACTIVE);
                             plata.ich.setCondition(Condition.INACTIVE);
                             plata.vzu[processConfig[id].numVzu].setCondition(Condition.INACTIVE);
@@ -202,7 +217,7 @@ public class Process {
                             waiting = false;
                             currentOperation++;
                             currentType++;
-                            plata.etapPDP = 0;
+
                         }
                     });
 
@@ -212,6 +227,7 @@ public class Process {
     }
 
     private boolean processingFile() {
+        prosessor.prerivanie.remove((Object)id);
         typeOperation = TypeOperation.PROCESSING_FILE;
         if (plata.gmch.getCondition() == Condition.INACTIVE) {
             prosessor.setTypeOperation(TypeOperation.PROCESSING_FILE);
@@ -244,6 +260,7 @@ public class Process {
     }
 
     private void actionComands() {
+        prosessor.prerivanie.remove((Object)id);
         typeOperation = TypeOperation.ACTION_COMANDS;
         prosessor.setTypeOperation(TypeOperation.ACTION_COMANDS);
         try {

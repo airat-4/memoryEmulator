@@ -30,6 +30,10 @@ public class SystemShina extends Conditionable{
                 ||plata.prosessor.getTypeOperation() == TypeOperation.PROCESSING_FILE) {
             graphics.fillPolygon(poly);
         }
+        if(plata.prerivanie){
+            graphics.setColor(plata.prerivanieColor);
+            graphics.fillPolygon(poly);
+        }
         graphics.setColor(Color.BLACK);
         graphics.drawPolygon(poly);
         graphics.drawString("Системная", 120, 30);

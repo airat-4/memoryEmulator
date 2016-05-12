@@ -50,6 +50,11 @@ public class GMCH extends Conditionable{
                 }
             }
         }
+        if(plata.prerivanie){
+            graphics.setColor(plata.prerivanieColor);
+            graphics.fillRect(175, 0, 40, 20);
+            graphics.fillRect(190, 20, 10, 80);
+        }
 
         graphics.setColor(Color.BLACK);
         graphics.drawRect(0, 0, 400, 100);

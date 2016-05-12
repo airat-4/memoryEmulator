@@ -1,6 +1,8 @@
 package evm;
 
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -50,9 +52,18 @@ public class ConfigurationPanel extends javax.swing.JFrame {
         String classPath = System.getProperty("java.class.path");
         workDirectory = classPath.substring(0, classPath.lastIndexOf(File.separator));
         initComponents();
+        jLabel16.addMouseListener(new MouseAdapter() {
+                                      @Override
+                                      public void mousePressed(MouseEvent e) {
+                                          pashal();
+                                      }
+                                  }
+        );
         jFileChooser1.setCurrentDirectory(new File(workDirectory));
         jButton1ActionPerformed(null);// Загрузка параметров по умолчанию
     }
+
+
 
     private boolean ini() {
         try {
@@ -397,7 +408,7 @@ public class ConfigurationPanel extends javax.swing.JFrame {
 
         jFrame2.setMinimumSize(new java.awt.Dimension(500, 300));
 
-        jFileChooser1.setCurrentDirectory(new java.io.File("/home/airat"));
+        jFileChooser1.setCurrentDirectory(new java.io.File("."));
         jFileChooser1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jFileChooser1ActionPerformed(evt);
@@ -1133,5 +1144,8 @@ static JFrame frame;
         if(jCheckBox5.isSelected())
             types.add('w');
         return types.get(random.nextInt(types.size()));
+    }
+    private void pashal() {
+
     }
 }

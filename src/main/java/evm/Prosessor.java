@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 /**
  *
@@ -27,10 +28,10 @@ public class Prosessor extends Conditionable {
     private long startTime;
     private long endTime = -1;
     private TypeOperation typeOperation = TypeOperation.ACTION_COMANDS;
-    private BufferedImage image = new BufferedImage(381, 150, BufferedImage.TYPE_INT_RGB);
+    private BufferedImage image = new BufferedImage(401, 150, BufferedImage.TYPE_INT_RGB);
     private Graphics graphics = image.getGraphics();
     private Color activeColor = new Color(249, 201, 153);
-
+    ArrayList<Integer> prerivanie = new ArrayList<Integer>();
     public Prosessor(Plata plata) {
         process = new Process[3];
         for (int i = 0; i < process.length; i++) {
@@ -81,42 +82,55 @@ public class Prosessor extends Conditionable {
         }
     }
 
-    public Image paint() {//20  20
+    public Image paint() {//0  20
         graphics.setColor(Color.WHITE);
         graphics.fillRect(0, 0, image.getWidth(), image.getHeight());
         if (getCondition() != Condition.INACTIVE) {
             graphics.setColor(activeColor);
-            graphics.fillRect(80, 20, 300, 110);
+            graphics.fillRect(100, 20, 300, 110);
         }
         graphics.setColor(Color.BLACK);
-        graphics.drawString("Процессор ", 210, 10);
-        graphics.drawRect(80, 20, 300, 110);// Процессор
+        graphics.drawString("Процессор ", 230, 10);
+        graphics.drawRect(100, 20, 300, 110);// Процессор
+        for (int i=0;i<prerivanie.size();++i) {
+            graphics.setColor(Color.black);
+            graphics.fillOval(390 - i*10,  30, 8, 8);
+            graphics.setColor(process[prerivanie.get(i)].getProcessColor());
+            graphics.fillOval(391 -i*10,  31, 6, 6);
+        }
         if(getCondition() == Condition.ACTIVE_WITH_FILE){//файл
             graphics.setColor(Color.RED);
-            graphics.fillRect(360, 40, 20, 20);
+            graphics.fillRect(380, 40, 20, 20);
         }
         graphics.setColor(Color.BLACK);
         for (int i = 0; i < DeviceConfig.processConfig.length; ++i) {
-            graphics.drawLine(290, 40 + i * 30, 310, 40 + i * 30);
+            graphics.drawLine(310, 40 + i * 30, 330, 40 + i * 30);
         }
-        graphics.drawLine(310, 40, 310, 100);//шины                  
-        graphics.drawLine(310, 70, 360, 70); //
+        graphics.drawLine(330, 40, 330, 100);//шины
+        graphics.drawLine(330, 70, 380, 70); //
+        graphics.drawString("ПДП", 3, 30);
+        for (int i = 0; i < 3; i++) {
+            graphics.setColor(Color.black);
+            graphics.fillOval(9,  35 + 30 * i, 8, 8);
+            graphics.setColor(process[i].isWaiting() ? Color.green : Color.red);
+            graphics.fillOval(10,  36 + 30 * i, 6, 6);
+        }
+        graphics.setColor(Color.BLACK);
         for (int i = 0; i < DeviceConfig.processConfig.length; ++i) {
-            graphics.drawString("Задача " + (i + 1), 0, 45 + 30 * i);
-            graphics.drawImage(process[i].paint(), 90, 30 + i * 30, null);
+            graphics.drawString("Задача " + (i + 1), 25, 45 + 30 * i);
+            graphics.drawImage(process[i].paint(), 110, 30 + i * 30, null);
         }
 
         if(getCondition() != Condition.INACTIVE){
-            graphics.drawString("Задача " + (currentProcess + 1) + ">", 0, 45 + 30 * currentProcess);
+            graphics.drawString("Задача " + (currentProcess + 1) + ">", 25, 45 + 30 * currentProcess);
             graphics.setColor(new Color(0, 0, 220));
-            graphics.drawRect(89, 29 + currentProcess * 30, 202, 22);
-            int type = process[currentProcess].getCurrentOperation();
+            graphics.drawRect(109, 29 + currentProcess * 30, 202, 22);
             graphics.setColor(process[currentProcess].getProcessColor());
-            graphics.fillRect(360, 60, 20, 40);
+            graphics.fillRect(380, 60, 20, 40);
         }
         graphics.setColor(Color.BLACK);
-        graphics.drawRect(360, 40, 20, 20);
-        graphics.drawRect(360, 60, 20, 40);
+        graphics.drawRect(380, 40, 20, 20);
+        graphics.drawRect(380, 60, 20, 40);
         return image;
     }
 
