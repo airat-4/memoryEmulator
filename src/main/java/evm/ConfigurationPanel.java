@@ -1146,6 +1146,27 @@ static JFrame frame;
         return types.get(random.nextInt(types.size()));
     }
     private void pashal() {
-
+        new  Thread(){
+            @Override
+            public void run() {
+                jLabel16.setText("Делай");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {}
+                jLabel16.setText("Или не делай");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {}
+                jLabel16.setText("Не надо пытаться");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {}
+                jLabel16.setText("© магистр Йода");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {}
+                jLabel16.setText("Айрат Гареев 2016 г.");
+            }
+        }.start();
     }
 }
