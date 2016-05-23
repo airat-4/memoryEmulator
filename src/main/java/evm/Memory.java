@@ -26,7 +26,7 @@ public class Memory extends Conditionable{
             graphics.setColor(activeColor);
             graphics.fillRect(0, 30, 100, 100);
             
-            graphics.setColor(Color.RED);
+            graphics.setColor(Color.green);
             graphics.fillRect(x, y + 30, widthFile, widthFile);
             graphics.setColor(Color.BLACK);
             graphics.drawRect(x, y + 30, widthFile, widthFile);

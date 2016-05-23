@@ -40,7 +40,7 @@ public class VZU extends Conditionable{
             graphics.fillRect(0, 20, 150, 150);
         }
         if(getCondition() == Condition.ACTIVE_WITH_FILE){
-            graphics.setColor(Color.RED);
+            graphics.setColor(Color.green);
             graphics.fillRect(x, y + 20, widthFile, widthFile);
             graphics.setColor(Color.BLACK);
             graphics.drawRect(x, y + 20, widthFile, widthFile);
